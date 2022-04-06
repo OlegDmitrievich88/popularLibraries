@@ -6,4 +6,8 @@
     <string name="enter">Enter</string>
     <string name="registration">registration</string>
     <string name="forgot_my_password">forgot my password</string>
+    <string name="setLogin">тут вы могли бы устоновить пароль, но раздел в разработке</string>
+    <string name="setNewPassword">тут вы могли бы устоновить новый пароль, но и это раздел в разработке</string>
+    <string name="ErrorLogin">неверный логин</string>
+    <string name="ErrorPassword">неверный пароль</string>
 </resources>
