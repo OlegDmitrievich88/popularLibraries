@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SomeApp</string>
+    <string name="log_in_to_log_in_to_the_app">Log in to log in to the app</string>
+    <string name="enter_your_username">enter your username</string>
+    <string name="enter_the_password">enter the password</string>
+    <string name="enter">Enter</string>
+    <string name="registration">registration</string>
+    <string name="forgot_my_password">forgot my password</string>
+</resources>
