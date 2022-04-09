@@ -5,23 +5,30 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.someapp.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LoginContract.View {
 
+    private lateinit var binding: ActivityMainBinding
     private var presenter: LoginContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
 
         presenter = restorePresenter()
         presenter?.onAttach(this)
 
-        button_enter.setOnClickListener{
-            presenter?.onLogin(login_text.text.toString(),password_text.text.toString())
+        button_enter.setOnClickListener {
+            presenter?.onLogin(
+                binding.loginEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            )
+
         }
         button_registration.setOnClickListener {
             presenter?.onRegistration()
@@ -37,23 +44,27 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
         return presenter ?: LoginPresenter()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRetainCustomNonConfigurationInstance(): Any? = presenter
 
 
     override fun setSuccess() {
-        Toast.makeText(this,"good", Toast.LENGTH_SHORT).show()
-        button_registration.isVisible = false
-        button_forgot_my_password.isVisible = false
-        container.setBackgroundColor(Color.RED)
+        Toast.makeText(this, "good", Toast.LENGTH_SHORT).show()
+        with(binding) {
+            buttonRegistration.isVisible = false
+            buttonForgotMyPassword.isVisible = false
+            container.setBackgroundColor(Color.RED)
+        }
+
 
     }
 
     override fun setErrorPassword() {
-        Toast.makeText(this,R.string.ErrorPassword, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_SHORT).show()
     }
 
     override fun setErrorLogin() {
-        Toast.makeText(this,R.string.ErrorLogin, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_SHORT).show()
     }
 
     override fun setProgress() {
@@ -61,11 +72,11 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun setScreenForRegistration() {
-        Toast.makeText(this,R.string.setLogin, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.setLogin, Toast.LENGTH_SHORT).show()
     }
 
     override fun setNewPassword() {
-        Toast.makeText(this,R.string.setNewPassword, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.setNewPassword, Toast.LENGTH_SHORT).show()
     }
 
     override fun removeProgress() {
