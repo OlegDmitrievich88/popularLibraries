@@ -32,7 +32,7 @@ class LoginContract {
 
     interface Presenter {
         fun onAttach(view: View)
-        fun onLogin(login: String, passoword: String)
+        fun onLogin(login: String, password: String)
         fun onChangePassword()
         fun onRegistration()
 
