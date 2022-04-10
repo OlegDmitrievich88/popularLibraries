@@ -1,4 +1,4 @@
-package com.example.someapp
+package com.example.someapp.ui
 
 import androidx.annotation.MainThread
 

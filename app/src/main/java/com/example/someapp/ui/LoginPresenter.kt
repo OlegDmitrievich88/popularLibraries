@@ -1,14 +1,15 @@
-package com.example.someapp
+package com.example.someapp.ui
 
 import android.os.Handler
 import android.os.Looper
+import com.example.someapp.domain.LoginApi
 import java.lang.Thread.sleep
 
-class LoginPresenter : LoginContract.Presenter {
+class LoginPresenter(private val api: LoginApi) : LoginContract.Presenter {
 
     private var view: LoginContract.View? = null
-    private val truePassword: String = "1"
-    private val trueLogin: String = "1"
+  //  private val truePassword: String = "1"
+  //  private val trueLogin: String = "1"
     private var isSuccess: Boolean = false
     private val uiHandler = Handler(Looper.getMainLooper())
 
@@ -23,8 +24,10 @@ class LoginPresenter : LoginContract.Presenter {
     override fun onLogin(login: String, passoword: String) {
         view?.setProgress()
         Thread {
+            val login = api.login(login)
+            val password = api.password(passoword)
             sleep(3000)
-            uiHandler.post { access(login, passoword) }
+            uiHandler.post { access(login,password) }
 
         }.start()
 
@@ -41,9 +44,9 @@ class LoginPresenter : LoginContract.Presenter {
         view?.setScreenForRegistration()
     }
 
-    private fun access(login: String, password: String) {
-        if (login == trueLogin) {
-            if (password == truePassword) {
+    private fun access(login: Boolean,password: Boolean) {
+        if (login) {
+            if (password) {
                 isSuccess = true
                 view?.removeProgress()
                 view?.setSuccess()
