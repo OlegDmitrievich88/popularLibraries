@@ -7,7 +7,12 @@ class FakeLoginApiImplementation : LoginApi {
     private val truePassword: String = "1"
     private val trueLogin: String = "1"
 
-    override fun login(login: String): Boolean {
+//    override fun login(login: String): Boolean {
+//        Thread.sleep(1000)
+//        return login == trueLogin
+//    }
+
+    override fun login(login: String, password: String): Boolean {
         Thread.sleep(1000)
         return login == trueLogin
     }

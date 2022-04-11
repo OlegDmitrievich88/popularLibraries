@@ -4,7 +4,8 @@ import com.example.someapp.domain.LoginApi
 
 class WebLoginApiImplementation : LoginApi {
 
-    override fun login(login: String): Boolean {
+
+    override fun login(login: String, password: String): Boolean {
         TODO("Not yet implemented")
     }
 

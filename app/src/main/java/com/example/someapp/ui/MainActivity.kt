@@ -2,12 +2,16 @@ package com.example.someapp.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.someapp.R
 import com.example.someapp.app
+import com.example.someapp.data.LoginUseCaseImplementation
 import com.example.someapp.databinding.ActivityMainBinding
+import com.example.someapp.domain.LoginUseCase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LoginContract.View {
@@ -19,8 +23,6 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         presenter = restorePresenter()
         presenter?.onAttach(this)
@@ -43,7 +45,9 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
 
     private fun restorePresenter(): LoginPresenter {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter(app.api)
+        //  val useCase: LoginUseCase = LoginUseCaseImplementation(app.api, Handler(Looper.getMainLooper()) )
+        //return presenter ?: LoginPresenter(app.api)
+        return presenter ?: LoginPresenter(app.loginUseCase)
     }
 
     @Deprecated("Deprecated in Java")
