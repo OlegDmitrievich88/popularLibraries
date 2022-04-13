@@ -2,17 +2,13 @@ package com.example.someapp.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.someapp.R
 import com.example.someapp.app
-import com.example.someapp.data.LoginUseCaseImplementation
 import com.example.someapp.databinding.ActivityMainBinding
-import com.example.someapp.domain.LoginUseCase
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), LoginContract.View {
 
@@ -27,17 +23,17 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
         presenter = restorePresenter()
         presenter?.onAttach(this)
 
-        button_enter.setOnClickListener {
+        binding.buttonEnter.setOnClickListener {
             presenter?.onLogin(
                 binding.loginEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
 
         }
-        button_registration.setOnClickListener {
+        binding.buttonRegistration.setOnClickListener {
             presenter?.onRegistration()
         }
-        button_forgot_my_password.setOnClickListener {
+        binding.buttonForgotMyPassword.setOnClickListener {
             presenter?.onChangePassword()
         }
 
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun setProgress() {
-        progress_bar.isVisible = true
+        binding.progressBar.isVisible = true
     }
 
     override fun setScreenForRegistration() {
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun removeProgress() {
-        progress_bar.isVisible = false
+        binding.progressBar.isVisible = false
     }
 
 
