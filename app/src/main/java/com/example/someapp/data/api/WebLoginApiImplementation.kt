@@ -1,4 +1,4 @@
-package com.example.someapp.data
+package com.example.someapp.data.api
 
 import com.example.someapp.domain.LoginApi
 

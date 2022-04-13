@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import com.example.someapp.data.FakeLoginApiImplementation
+import com.example.someapp.data.api.FakeLoginApiImplementation
 import com.example.someapp.data.LoginUseCaseImplementation
 import com.example.someapp.domain.LoginApi
 import com.example.someapp.domain.LoginUseCase
