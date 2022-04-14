@@ -26,7 +26,7 @@
 
         <EditText
             style="@style/MyLoginStyle"
-            android:id="@+id/login_text"
+            android:id="@+id/login_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -35,7 +35,7 @@
 
         <EditText
             style="@style/MyLoginStyle"
-            android:id="@+id/password_text"
+            android:id="@+id/password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
