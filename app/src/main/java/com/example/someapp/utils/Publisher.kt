@@ -1,15 +1,16 @@
 package com.example.someapp.utils
 
-private typealias Subscriber<T> = (T) -> Unit
+private typealias Subscriber<T> = (T?) -> Unit
 class Publisher<T> {
 
     private var subscribers: MutableSet<Subscriber<T>>? = mutableSetOf()
     private  val value: T? = null
+    private var hasFirstValue = false
 
     fun subscribe(subscriber: Subscriber<T>){
         subscribers?.add(subscriber)
-        value?.let {
-            subscriber.invoke(it)
+        if(hasFirstValue){
+            subscriber?.invoke(value)
         }
     }
 

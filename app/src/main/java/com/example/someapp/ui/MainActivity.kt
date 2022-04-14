@@ -10,47 +10,62 @@ import com.example.someapp.app
 import com.example.someapp.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), LoginContract.View {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var presenter: LoginContract.Presenter? = null
+    //private var presenter: LoginContract.Presenter? = null
+    private var viewModel: LoginContract.ViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        presenter = restorePresenter()
-        presenter?.onAttach(this)
+        viewModel = restoreViewModel()
+       // presenter = restorePresenter()
+       // presenter?.onAttach(this)
 
         binding.buttonEnter.setOnClickListener {
-            presenter?.onLogin(
+            viewModel?.onLogin(
                 binding.loginEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
 
         }
         binding.buttonRegistration.setOnClickListener {
-            presenter?.onRegistration()
+            viewModel?.onRegistration()
         }
         binding.buttonForgotMyPassword.setOnClickListener {
-            presenter?.onChangePassword()
+            viewModel?.onChangePassword()
+        }
+        viewModel?.showProgress?.subscribe { shouldShow->
+            if (shouldShow == true){
+                setProgress()
+            }else{
+                removeProgress()
+            }
+
+        }
+        viewModel?.isSuccess?.subscribe {
+            if (it == true){
+                setSuccess()
+            }
         }
 
     }
 
-    private fun restorePresenter(): LoginPresenter {
-        val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
+    private fun restoreViewModel(): LoginViewModel {
+        val viewModel = lastCustomNonConfigurationInstance as? LoginViewModel
         //  val useCase: LoginUseCase = LoginUseCaseImplementation(app.api, Handler(Looper.getMainLooper()) )
         //return presenter ?: LoginPresenter(app.api)
-        return presenter ?: LoginPresenter(app.loginUseCase)
+        return viewModel ?: LoginViewModel(app.loginUseCase)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRetainCustomNonConfigurationInstance(): Any? = presenter
+    override fun onRetainCustomNonConfigurationInstance(): Any? {
+        return viewModel
+    }
 
-
-    override fun setSuccess() {
+    fun setSuccess() {
         Toast.makeText(this, "good", Toast.LENGTH_SHORT).show()
         with(binding) {
             buttonRegistration.isVisible = false
@@ -61,27 +76,27 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
 
     }
 
-    override fun setErrorPassword() {
+     fun setErrorPassword() {
         Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setErrorLogin() {
+    fun setErrorLogin() {
         Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setProgress() {
+    fun setProgress() {
         binding.progressBar.isVisible = true
     }
 
-    override fun setScreenForRegistration() {
+     fun setScreenForRegistration() {
         Toast.makeText(this, R.string.setLogin, Toast.LENGTH_SHORT).show()
     }
 
-    override fun setNewPassword() {
+     fun setNewPassword() {
         Toast.makeText(this, R.string.setNewPassword, Toast.LENGTH_SHORT).show()
     }
 
-    override fun removeProgress() {
+     fun removeProgress() {
         binding.progressBar.isVisible = false
     }
 

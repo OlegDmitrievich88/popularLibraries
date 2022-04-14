@@ -1,15 +1,16 @@
 package com.example.someapp.ui
 
 import androidx.annotation.MainThread
+import com.example.someapp.utils.Publisher
 
 
-class LoginContract {
+interface LoginContract {
 
     interface ViewModel {
 
-        var showProgress: Boolean
-        var isSuccess: Boolean
-        var errorText: String
+        val showProgress: Publisher<Boolean>
+        val isSuccess: Publisher<Boolean>
+        val errorText: Publisher<String>
 
         @MainThread
         fun onLogin(login: String, password: String)
